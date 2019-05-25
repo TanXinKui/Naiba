@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/backbtn1"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="#00a2e9"
+            android:text="返回"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/commentTittle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00a2e9"
+            android:gravity="center"
+            android:text="评论列表"
+            android:textColor="#fff"
+            android:textSize="25dp" />
+
+        <ListView
+            android:id="@+id/list_commen"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_below="@id/backbtn1"></ListView>
+
+        <Button
+            android:id="@+id/searchbtn1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/list_commen"
+            android:background="#1000"
+            android:text="点击刷新"
+            android:textColor="#00a2e9"
+            android:textSize="20dp" />
+    </RelativeLayout>
+</LinearLayout>

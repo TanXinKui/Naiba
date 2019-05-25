@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#f1ebd3"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/back1"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:background="#00a2e9">
+
+            <Button
+                android:id="@+id/closebtn"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:background="#00a2e9"
+                android:text="返回"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/back1"
+            android:background="#fff"></RelativeLayout>
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/xhr1" />
+
+        <TextView
+            android:id="@+id/naiba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="140dp"
+            android:background="@drawable/appname"
+            android:textColor="#ffffff"
+            android:textSize="70dp" />
+
+        <EditText
+            android:id="@+id/yhm1"
+            android:layout_width="110pt"
+            android:layout_height="15pt"
+            android:layout_below="@id/naiba"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="#FFF"
+            android:hint="请输入用户名"
+            android:textColor="#00a2e9"
+            android:textColorHint="#00a2e9"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="10pt"
+            android:layout_height="10pt"
+            android:layout_alignBottom="@id/yhm1"
+            android:layout_alignRight="@id/yhm1"
+            android:layout_below="@+id/naiba"
+            android:src="@drawable/username" />
+
+        <EditText
+            android:id="@+id/mm1"
+            android:layout_width="110pt"
+            android:layout_height="15pt"
+            android:layout_below="@id/yhm1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#FFF"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:textColor="#00a2e9"
+            android:textColorHint="#00a2e9"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="12pt"
+            android:layout_height="6pt"
+            android:layout_alignBottom="@id/mm1"
+            android:layout_alignRight="@id/mm1"
+            android:layout_below="@+id/yhm1"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/password" />
+
+        <EditText
+            android:id="@+id/qrmm1"
+            android:layout_width="110pt"
+            android:layout_height="15pt"
+            android:layout_below="@+id/mm1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#FFF"
+            android:hint="请再次输入密码"
+            android:inputType="textPassword"
+            android:textColor="#00a2e9"
+            android:textColorHint="#00a2e9"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="12pt"
+            android:layout_height="6pt"
+            android:layout_alignBottom="@id/qrmm1"
+            android:layout_alignRight="@id/qrmm1"
+            android:layout_below="@+id/mm1"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/password" />
+
+        <EditText
+            android:id="@+id/yx1"
+            android:layout_width="110pt"
+            android:layout_height="15pt"
+            android:layout_below="@id/qrmm1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="#FFF"
+            android:hint="请输入手机号码"
+            android:phoneNumber="true"
+            android:textColor="#00a2e9"
+            android:textColorHint="#00a2e9"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:layout_width="12pt"
+            android:layout_height="13pt"
+            android:layout_above="@+id/zczh"
+            android:layout_alignBottom="@id/yx1"
+            android:layout_alignRight="@id/yx1"
+            android:src="@drawable/emailbox" />
+
+        <ImageButton
+            android:id="@+id/zczh"
+            android:layout_width="25pt"
+            android:layout_height="25pt"
+            android:layout_below="@+id/yx1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/zczh" />
+
+    </RelativeLayout>
+
+</LinearLayout>

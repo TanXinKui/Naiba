@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_0_0"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="#00a2e9">
+
+        <Button
+            android:id="@+id/main_1"
+            android:layout_width="325dp"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#FFF"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:hint="@string/mian_text1"
+            android:maxLength="15"
+            android:onClick="searchlist"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/main_division"
+        android:layout_width="match_parent"
+        android:layout_height="147dp"
+        android:layout_below="@id/main_0_0"
+        android:layout_marginBottom="3dp"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shangjia"
+            android:layout_gravity="center"></android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+
+            >
+
+            <TextView
+                android:id="@+id/NewsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="100dp"
+                android:paddingTop="10dp"
+                android:text="   "
+                android:textColor="#fff"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/dotgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingRight="10dp"
+                android:paddingTop="23dp"></LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/listV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_division"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/android:list"
+            android:layout_width="wrap_content"
+            android:layout_height="335dp"
+            android:background="#1000"
+            android:divider="#0000"
+            android:dividerHeight="10dip"
+            android:listSelector="@android:color/transparent"></ListView>
+
+        <TextView
+            android:id="@+id/sumup"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/android:list"
+            android:background="#00a2e9"
+            android:paddingTop="5dp"
+            android:text="    合计(￥):"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/sumupnum"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/sumup"
+            android:layout_below="@id/android:list"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="80dp"
+            android:paddingTop="5dp"
+            android:text="0"
+            android:textColor="#f00"
+            android:textSize="20dp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/toclear"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/android:list"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/topay"
+            android:background="#0000"
+            android:text="清空"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/topay"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignRight="@+id/sumup"
+            android:layout_below="@id/android:list"
+            android:background="#0fff"
+            android:text=" 去结算"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mian_0_2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFF"
+        android:gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/main_bottom_left"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/order1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/main_bottom_mid"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:background="@drawable/list1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/main_bottom_right"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/client1" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

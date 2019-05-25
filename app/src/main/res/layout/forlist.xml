@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/forlistiv1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/forlisttv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/forlistiv1"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/forlisttv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forlisttv1"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/forlistiv1"
+            android:textColor="#9000"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/forlisttv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forlisttv1"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/forlisttv2"
+            android:textColor="#9000"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/forlisttv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forlisttv3"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/forlistiv1"
+            android:textColor="#9000"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/forlisttv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forlisttv4"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/forlistiv1"
+            android:textColor="#F00"
+            android:textSize="8dp" />
+
+        <TextView
+            android:id="@+id/forlisttv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forlisttv5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/forlistiv1"
+            android:textColor="#F00"
+            android:textSize="8dp" />
+
+        <ImageButton
+            android:id="@+id/forlistib1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/forlistib2"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/forlisttv7"
+            android:background="#00000000"
+            android:focusable="false" />
+
+        <TextView
+            android:id="@+id/forlisttv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/forlistib2"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/forlistib2"
+            android:textColor="#000"
+            android:textSize="15dp" />
+
+        <ImageButton
+            android:id="@+id/forlistib2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="60dp"
+            android:background="#00000000"
+            android:focusable="false" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="actions_images">
+        <item>@drawable/dish1</item>
+        <item>@drawable/dish2</item>
+        <item>@drawable/dish3</item>
+        <item>@drawable/dish4</item>
+        <item>@drawable/dish5</item>
+        <item>@drawable/dish6</item>
+        <item>@drawable/dish7</item>
+        <item>@drawable/dish8</item>
+        <item>@drawable/dish9</item>
+    </string-array>
+</resources>
