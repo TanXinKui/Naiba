@@ -72,7 +72,7 @@ public interface Request {
      * 设置商家已经查看
      */
     @POST("StateManage")
-    Observable<Response<String>> setStateManage(@Query("deskNum") int deskNum);
+    Observable<Response<String>> setStateManage(@Query("deskNum") int deskNum,@Query("stateNum") int stateNum);
 
     /**
      * 注册接口

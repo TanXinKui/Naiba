@@ -389,7 +389,7 @@ public class OrderList extends Activity {
     }
 
     private void setStateManage(int deskNum) {
-        NetWorkManager.getRequest().setStateManage(deskNum)
+        NetWorkManager.getRequest().setStateManage(deskNum,2)
                 .compose(ResponseTransformer.handleResult())
                 .compose(SchedulerProvider.getInstance().applySchedulers())
                 .subscribe();
