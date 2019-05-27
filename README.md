@@ -6,20 +6,22 @@
 之前做的时候没有前后端分离，是直接用jdbc连接数据库，现在把前端和后端分离了出来。
 后端部署在本人的腾讯云服务器（在eclipse打包成war后部署在tomcat）。
 # 主要界面展示：
-<table border="1">
+<table border="0" >
 <tr>
 <td><center>登陆界面</center></td>
 <td><center>点餐界面</center></td>
 <td><center>订单界面</center></td>
 <td><center>个人界面</center></td>
-</tr>
+</tr> 
 <tr>
 <td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/login.jpg" width="120" ></td>
 <td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/order.jpg" width="120" ></td>
 <td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/list.jpg" width="120" ></td>
 <td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/client.jpg" width="120" ></td>
 </tr>
-</table></br>
+</table>
+</center>  
+</br>
 # 朋友，前方的路太遥远，不如加个好友互相学习：</br></br>
 <table border="0">
 <tr>
