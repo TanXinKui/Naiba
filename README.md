@@ -21,8 +21,9 @@
 </tr>
 </table></br>
 朋友，前方的路太遥远，不如加个好友互相学习：</br>
-<table border="1" align="center">
-<tr><td>
-<img src="http://www.tanxinkui.cn/tonxokTempFiles/wechat.jpg" width="200" >
-</td></td><img src="http://www.tanxinkui.cn/tonxokTempFiles/qq.jpg" width="200" ></td></tr>
-</table>
+<table border="0">
+<tr>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/wechat.jpg" width="200" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/qq.jpg" width="200" ></td>
+</tr>
+
