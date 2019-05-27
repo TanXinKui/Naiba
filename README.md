@@ -8,16 +8,16 @@
 # 主要界面展示：
 <table border="0" >
 <tr>
-<td><center>登陆界面</center></td>
-<td><center>点餐界面</center></td>
-<td><center>订单界面</center></td>
-<td><center>个人界面</center></td>
+<td align="center">登陆界面</td>
+<td align="center">点餐界面</td>
+<td align="center">订单界面</td>
+<td align="center">个人界面</td>
 </tr> 
 <tr>
-<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/login.jpg" width="120" ></td>
-<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/order.jpg" width="120" ></td>
-<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/list.jpg" width="120" ></td>
-<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/client.jpg" width="120" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/login.jpg" width="200" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/order.jpg" width="200" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/list.jpg" width="200" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/client.jpg" width="200" ></td>
 </tr>
 </table>
 </center>  
