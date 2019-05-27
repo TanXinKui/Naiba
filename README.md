@@ -23,5 +23,6 @@
 </center>  
 </br>
 
-# 联系我：
-邮箱：tanxinkui@qq.com
+# 联系我(contact me)：
+邮箱(email)：tanxinkui@qq.com </br>
+博客(blog)：www.tanxinkui.cn 
