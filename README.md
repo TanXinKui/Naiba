@@ -19,7 +19,11 @@
 <td><img src="https://github.com/TanXinKui/Naiba/raw/master/app/src/main/res/drawable/applogo.png" width="25" ></td>
 <td><img src="https://github.com/TanXinKui/Naiba/raw/master/app/src/main/res/drawable/applogo.png" width="25" ></td>
 </tr>
-</table>
-# 朋友，前方的路太遥远，不如加个好友互相学习：</br>
-wechat:15818044362</br>
-qq:2647587557
+</table></br>
+朋友，前方的路太遥远，不如加个好友互相学习：</br>
+<table border="1">
+<tr>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/wechat.jpg" width="100" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/qq.jpg" width="100" ></td>
+</tr>
+</table></br>
