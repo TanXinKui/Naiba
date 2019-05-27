@@ -23,12 +23,5 @@
 </center>  
 </br>
 
-# 加个好友：</br></br>
-<table border="0">
-<tr>
-<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/wechat.jpg" width="200" ></td>
-<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/qq.jpg" width="200" ></td>
-</tr>
-
-# 意见建议:
+# 联系我：
 邮箱：tanxinkui@qq.com
