@@ -8,19 +8,19 @@
 # 主要界面展示：
 <table border="1">
 <tr>
-<td>row 1, cell 1</td>
-<td>row 1, cell 2</td>
-<td>row 1, cell 2</td>
-<td>row 1, cell 2</td>
+<td><center>登陆界面</center></td>
+<td><center>点餐界面</center></td>
+<td><center>订单界面</center></td>
+<td><center>个人界面</center></td>
 </tr>
 <tr>
-<td><img src="https://github.com/TanXinKui/Naiba/raw/master/app/src/main/res/drawable/applogo.png" width="25" ></td>
-<td><img src="https://github.com/TanXinKui/Naiba/raw/master/app/src/main/res/drawable/applogo.png" width="25" ></td>
-<td><img src="https://github.com/TanXinKui/Naiba/raw/master/app/src/main/res/drawable/applogo.png" width="25" ></td>
-<td><img src="https://github.com/TanXinKui/Naiba/raw/master/app/src/main/res/drawable/applogo.png" width="25" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/login.jpg" width="120" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/order.jpg" width="120" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/list.jpg" width="120" ></td>
+<td><img src="http://www.tanxinkui.cn/tonxokTempFiles/naibaClient/client.jpg" width="120" ></td>
 </tr>
 </table></br>
-朋友，前方的路太遥远，不如加个好友互相学习：</br>
+# 朋友，前方的路太遥远，不如加个好友互相学习：</br></br>
 <table border="0">
 <tr>
 <td><img src="http://www.tanxinkui.cn/tonxokTempFiles/wechat.jpg" width="200" ></td>
