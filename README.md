@@ -25,4 +25,8 @@
 
 # 联系我(contact me)：
 邮箱(email)：tanxinkui@qq.com </br>
-博客(blog)：www.tanxinkui.cn 
+博客(blog)：www.tanxinkui.cn </br>
+
+# 注意：
+🈲本作品仅供学习参考，禁止用于商业用途。
+
