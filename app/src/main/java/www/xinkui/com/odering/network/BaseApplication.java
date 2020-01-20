@@ -1,6 +1,10 @@
 package www.xinkui.com.odering.network;
 
 import android.app.Application;
+import android.content.res.Configuration;
+
+import www.xinkui.com.odering.mqtt.MQTTState;
+
 /**
 *@description
 *@author TONXOK
@@ -11,5 +15,17 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         NetWorkManager.getInstance().init();
+        MQTTState.getInstance();
+        MQTTState.setApplication(this);
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        MQTTState.getInstance().onTerminate();
     }
 }

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="www.xinkui.com.odering">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".network.BaseApplication"
         android:allowBackup="true"
@@ -11,26 +14,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".welcome.Introduction">
+        <activity android:name=".activity.MQTTActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.Login"></activity>
-        <activity android:name=".bean.ComInf"></activity>
-        <activity android:name=".user.Register"></activity>
-        <activity android:name=".activity.Main"></activity>
-        <activity android:name=".activity.OrderList"></activity>
-        <activity android:name=".activity.ClientInfo"></activity>
-        <activity android:name=".activity.SearchHistory"></activity>
-        <activity android:name=".activity.CommentList"></activity>
+        <activity android:name=".activity.RvTextActivity">
+
+        </activity>
+        <activity android:name=".welcome.Introduction"></activity>
+        <activity android:name=".user.Login" />
+        <activity android:name=".bean.ComInf" />
+        <activity android:name=".user.Register" />
+        <activity android:name=".activity.Main" />
+        <activity android:name=".activity.OrderList" />
+        <activity android:name=".activity.ClientInfo" />
+        <activity android:name=".activity.SearchHistory" />
+        <activity android:name=".activity.CommentList" />
 
         <service
             android:name=".service.SqlQuery"
-            android:exported="false"></service>
-
+            android:exported="false" />
+        <service
+            android:name=".mqtt.MQTTService"
+            android:exported="false" />
     </application>
 
 </manifest>

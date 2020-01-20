@@ -3,7 +3,7 @@ package www.xinkui.com.odering.bean;
 public class Advertisement {
     private String dishname;
     private String c3;
-    private float price;
+    private int price;
     private int state;
     private String description;
 
@@ -27,7 +27,7 @@ public class Advertisement {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

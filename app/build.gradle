@@ -38,5 +38,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0' // 必要retrofit依赖
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0' // 必要依赖，和Rxjava结合必须用到，下面会提到
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0' // 必要依赖，解析json字符所用
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1' //非必要依赖， log依赖，如果需要打印OkHttpLog需要添加
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    //非必要依赖， log依赖，如果需要打印OkHttpLog需要添加
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'//mqtt
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'//mqtt
 }
