@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,20 +24,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Timer;
-import java.util.TimerTask;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import www.xinkui.com.odering.R;
@@ -45,14 +41,13 @@ import www.xinkui.com.odering.bean.DishState;
 import www.xinkui.com.odering.bean.Menu;
 import www.xinkui.com.odering.bean.Transcation;
 import www.xinkui.com.odering.database.DataProvider;
+import www.xinkui.com.odering.mqtt.MQTTListener;
+import www.xinkui.com.odering.mqtt.MQTTObject;
+import www.xinkui.com.odering.mqtt.MQTTService;
 import www.xinkui.com.odering.network.NetWorkManager;
 import www.xinkui.com.odering.network.response.ResponseTransformer;
 import www.xinkui.com.odering.network.schedulers.SchedulerProvider;
-import www.xinkui.com.odering.service.SqlQuery;
 import www.xinkui.com.odering.util.Util;
-
-import static java.lang.Thread.sleep;
-
 /**
  * Created by lenovo on 2017/11/2.
  */
@@ -62,7 +57,7 @@ import static java.lang.Thread.sleep;
  * @description
  * @time 2019/4/28 10:56
  */
-public class OrderList extends Activity {
+public class OrderList extends Activity implements MQTTListener {
     String vendorphone;
     private long firstTime = 0;
     int balance, clientNum0, currentDesk, remainbalance;
@@ -71,7 +66,7 @@ public class OrderList extends Activity {
     TextView paystate;
     TextView clientNum1;
     TextView desknum3;
-    Timer timer;
+//    Timer timer;
     Boolean finishState = false;
     Handler myhandler1;
     Runnable updateThread;
@@ -82,7 +77,7 @@ public class OrderList extends Activity {
     Spinner sp1, sp2;
     ArrayAdapter<String> ad1;
     ArrayList<String> desknum;
-    SqlQuery sql1;
+//    SqlQuery sql1;
     Handler myHandler;
     private Button btn1;
     private Button btn3;
@@ -97,7 +92,17 @@ public class OrderList extends Activity {
         setContentView(R.layout.orderlist);
         initiateRunnable();
         initViews();
-        sqlsearch();
+        getBalance();
+        MQTTService.addMqttListener(this);
+        connectMQTT();
+    }
+    private void connectMQTT(){
+        Intent intent = new Intent(OrderList.this, MQTTService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 
     private void initViews() {
@@ -117,7 +122,7 @@ public class OrderList extends Activity {
                     if (currentState == -1) {
                         Toast.makeText(OrderList.this, "当前订单正在运行中，请勿修改！", Toast.LENGTH_SHORT).show();
                     } else {
-                        timer.cancel();
+//                        timer.cancel();
                         Intent intent = new Intent(OrderList.this, Main.class);
                         startActivity(intent);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -130,7 +135,7 @@ public class OrderList extends Activity {
                     if (currentState == -1) {
                         Toast.makeText(OrderList.this, "当前订单正在运行中，请保持在此页面！", Toast.LENGTH_SHORT).show();
                     } else {
-                        timer.cancel();
+//                        timer.cancel();
                         Intent intent = new Intent(OrderList.this, ClientInfo.class);
                         startActivity(intent);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -142,8 +147,8 @@ public class OrderList extends Activity {
         myHandler = new Handler();
         paystate = (TextView) findViewById(R.id.paystate);
         //启动service后台刷新
-        sql1 = new SqlQuery();
-        sql1.onStart(new Intent(), 1);
+//        sql1 = new SqlQuery();
+//        sql1.onStart(new Intent(), 1);
         sumup3 = (TextView) findViewById(R.id.sumup3);
         desknum3 = (TextView) findViewById(R.id.desknum);
         confirmback = (Button) findViewById(R.id.confirmback);
@@ -245,40 +250,13 @@ public class OrderList extends Activity {
                 new int[]{R.id.foro1, R.id.foro2, R.id.foro3}
         );
         list.setAdapter(simpleA);
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (currentDesk != -1) {
-                    int realCurrentDesk = currentDesk + 1;
-                    if (sql1.getDishStatesList().get(currentDesk).getConfirmState() == 1 &&
-                            sql1.getDishStatesList().get(currentDesk).getState() == 1) {
-                        try {
-                            setSate();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        myshow(realCurrentDesk);
-                    } else if (sql1.getDishStatesList().get(currentDesk).getConfirmState() == -1 &&
-                            sql1.getDishStatesList().get(currentDesk).getState() == 1) {
-                        try {
-                            setSate1();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        myshow(realCurrentDesk);
-                    } else if (sql1.getDishStatesList().get(currentDesk).getConfirmState() == 2 &&
-                            sql1.getDishStatesList().get(currentDesk).getState() == 1) {
-                        try {
-                            setSate2();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        myshow(realCurrentDesk);
-                    }
-                }
-            }
-        }, 500, 500);
+//        timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 500, 500);
     }
 
     private void initiateRunnable() {
@@ -437,8 +415,11 @@ public class OrderList extends Activity {
                 int t8 = DataProvider.getInstance().getData().get(7);
                 int t9 = DataProvider.getInstance().getData().get(8);
                 Menu menu = new Menu(t1, t2, t3, t4, t5, t6, t7, t8, t9);
-                NetWorkManager.getRequest().transcation(new Transcation(menu, balance, DataProvider.getInstance().getUsername(),
-                        Integer.valueOf(((TextView) findViewById(R.id.desknum)).getText().toString()), clientNum0))
+                Transcation transcation = new Transcation(menu, balance, DataProvider.getInstance().getUsername(),
+                        Integer.valueOf(((TextView) findViewById(R.id.desknum)).getText().toString()), clientNum0);
+                MQTTObject mqttObject=new MQTTObject(Util.MQTT_TOPIC,"orderRequest");
+                MQTTService.getMqttConfig().sendMessage(Util.MQTT_TOPIC,new Gson().toJson(mqttObject),0);
+                NetWorkManager.getRequest().transcation(transcation)
                         .compose(ResponseTransformer.handleResult())
                         .compose(SchedulerProvider.getInstance().applySchedulers())
                         .subscribe(new Observer<String>() {
@@ -471,7 +452,7 @@ public class OrderList extends Activity {
     /**
      * 获取余额，后续才进行相应的支付操作，annotation:如果没有足够的金额不能继续
      */
-    public void sqlsearch() {
+    private void getBalance() {
         NetWorkManager.getRequest().showBalance(DataProvider.getInstance().getUsername())
                 .compose(ResponseTransformer.handleResult())
                 .compose(SchedulerProvider.getInstance().applySchedulers())
@@ -497,5 +478,92 @@ public class OrderList extends Activity {
                                }
                            }
                 );
+    }
+    private void sqlSearch(){
+        NetWorkManager.getRequest().getDishState()
+                .compose(ResponseTransformer.handleResult())
+                .compose(SchedulerProvider.getInstance().applySchedulers())
+                .subscribe(new Observer<ArrayList<DishState>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(ArrayList<DishState> dishStates) {
+                        showMsg(dishStates);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.v("yzy", "failed!");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    private void showMsg(ArrayList<DishState> dishStates){
+        if (currentDesk != -1) {
+            int realCurrentDesk = currentDesk + 1;
+            if (dishStates.get(currentDesk).getConfirmState() == 1 &&
+                    dishStates.get(currentDesk).getState() == 1) {
+                try {
+                    setSate();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                myshow(realCurrentDesk);
+            } else if (dishStates.get(currentDesk).getConfirmState() == -1 &&
+                    dishStates.get(currentDesk).getState() == 1) {
+                try {
+                    setSate1();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                myshow(realCurrentDesk);
+            } else if (dishStates.get(currentDesk).getConfirmState() == 2 &&
+                    dishStates.get(currentDesk).getState() == 1) {
+                try {
+                    setSate2();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                myshow(realCurrentDesk);
+            }
+        }
+    }
+
+    @Override
+    public void onConnected() {
+
+    }
+
+    @Override
+    public void onLost() {
+
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onReceived(String topic, String message) {
+        if(topic.equals(Util.MQTT_TOPIC)){
+            Util.Loge(message);
+//            Type type = new TypeToken<ArrayList<DishState>>(){}.getType();
+//            ArrayList<DishState> list = new Gson().fromJson(message,type);
+            MQTTObject mqttObject = new Gson().fromJson(message,MQTTObject.class);
+            if(mqttObject.getMessage().equals("orderResponse")){
+                sqlSearch();
+            }
+        }
+    }
+
+    @Override
+    public void onSentSuccessfully() {
+        Util.Loge("sentSuccessfully");
     }
 }

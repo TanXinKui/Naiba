@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +39,8 @@ import www.xinkui.com.odering.bean.DishState;
 import www.xinkui.com.odering.bean.SellState;
 import www.xinkui.com.odering.bean.User;
 import www.xinkui.com.odering.database.DataProvider;
+import www.xinkui.com.odering.mqtt.MQTTListener;
+import www.xinkui.com.odering.mqtt.MQTTService;
 import www.xinkui.com.odering.network.NetWorkManager;
 import www.xinkui.com.odering.network.exception.ApiException;
 import www.xinkui.com.odering.network.response.ResponseTransformer;
@@ -50,7 +54,7 @@ import www.xinkui.com.odering.util.Util;
  * @time 2019/4/22 17:04
  */
 
-public class Main extends ListActivity {
+public class Main extends ListActivity implements MQTTListener {
     //private  TypedArray ar;
     //ListView list;
     /***----------------adView-------------**/
@@ -135,14 +139,14 @@ public class Main extends ListActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.v("anxin",e.toString());
+            Log.v("anxin", e.toString());
         }
         sumUpNum = (TextView) findViewById(R.id.sumupnum);
-        Log.v(this.getClass().getName(), "Main"+DataProvider.getInstance().getData().size());
-        if(DataProvider.getInstance().getData().size()!=0){
+        Log.v(this.getClass().getName(), "Main" + DataProvider.getInstance().getData().size());
+        if (DataProvider.getInstance().getData().size() != 0) {
             DataProvider.getInstance().countTotalPay();
             sumUpNum.setText(" " + DataProvider.getInstance().getData().get(Util.PLATES - 1) + " ");
-        }else {
+        } else {
             sumUpNum.setText(" " + 0 + " ");
         }
         for (int i = 0; i < ItemTitle.length; i++) {
@@ -268,6 +272,18 @@ public class Main extends ListActivity {
         sqlSearch();
         adViewSearch();
         myHandler.post(updateThread);
+        //connect to MQTTservice
+//        MQTTService.addMqttListener(this);
+//        connectMQTT();
+    }
+
+    private void connectMQTT(){
+        Intent intent = new Intent(Main.this, MQTTService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 
     public void initiateRunnable() {
@@ -539,8 +555,8 @@ public class Main extends ListActivity {
 
                     @Override
                     public void onNext(ArrayList<SellState> sellStates) {
-                        for(int i=0;i<sellStates.size();i++){
-                            dishState[i]=sellStates.get(i).getState();
+                        for (int i = 0; i < sellStates.size(); i++) {
+                            dishState[i] = sellStates.get(i).getState();
                         }
 
                     }
@@ -592,6 +608,34 @@ public class Main extends ListActivity {
         scheduledExecutorService.scheduleWithFixedDelay(new ViewPagerTask(), 5, 4, TimeUnit.SECONDS);
     }
 
+
+    @Override
+    public void onConnected() {
+
+    }
+
+    @Override
+    public void onLost() {
+
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void onReceived(String topic, String message) {
+        if(topic.equals(Util.MQTT_TOPIC)){
+//            MqttMessage mqttMessage=gson.fromJson(message,MqttMessage.class);
+            Util.Loge(message);
+        }
+    }
+
+    @Override
+    public void onSentSuccessfully() {
+        Util.Loge("sentSuccessfully");
+    }
 
     /**
      * 以下方法用于:切换图片任务
@@ -743,38 +787,41 @@ public class Main extends ListActivity {
             return null;
         }
     }
-    class ZoomOutPageTransforme implements ViewPager.PageTransformer{
-        private static final float MIN_SCALE =0.85f;
-        private static final float MIN_ALPHA =0.5f;
+
+    class ZoomOutPageTransforme implements ViewPager.PageTransformer {
+        private static final float MIN_SCALE = 0.85f;
+        private static final float MIN_ALPHA = 0.5f;
+
         @Override
         public void transformPage(@NonNull View page, float position) {
-                int pageHeight=page.getHeight();
-                int pageWidth=page.getWidth();
-                if(position<-1){
-                    page.setAlpha(0f);
-                }else if(position<=1) {
-                    float scaleFactor =Math.max(MIN_SCALE,1-Math.abs(position));
-                    float vertMargin = pageHeight*(1-scaleFactor)/2;
-                    float horMargin = pageWidth*(1-scaleFactor)/2;
-                    if (position < 0) {
-                        page.setTranslationX(horMargin - vertMargin / 2);
-                    } else {
-                        page.setTranslationX(-horMargin + vertMargin / 2);
-                    }
-                    // Scale the page down (between MIN_SCALE and 1)
-                    page.setScaleX(scaleFactor);
-                    page.setScaleY(scaleFactor);
-
-                    // Fade the page relative to its size.
-                    page.setAlpha(MIN_ALPHA +
-                            (scaleFactor - MIN_SCALE) /
-                                    (1 - MIN_SCALE) * (1 - MIN_ALPHA));
-                }else {
-                    page.setAlpha(0f);
+            int pageHeight = page.getHeight();
+            int pageWidth = page.getWidth();
+            if (position < -1) {
+                page.setAlpha(0f);
+            } else if (position <= 1) {
+                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
+                float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+                float horMargin = pageWidth * (1 - scaleFactor) / 2;
+                if (position < 0) {
+                    page.setTranslationX(horMargin - vertMargin / 2);
+                } else {
+                    page.setTranslationX(-horMargin + vertMargin / 2);
                 }
+                // Scale the page down (between MIN_SCALE and 1)
+                page.setScaleX(scaleFactor);
+                page.setScaleY(scaleFactor);
+
+                // Fade the page relative to its size.
+                page.setAlpha(MIN_ALPHA +
+                        (scaleFactor - MIN_SCALE) /
+                                (1 - MIN_SCALE) * (1 - MIN_ALPHA));
+            } else {
+                page.setAlpha(0f);
+            }
         }
     }
-     class DepthPageTransformer implements ViewPager.PageTransformer {
+
+    class DepthPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.75f;
 
         public void transformPage(View view, float position) {

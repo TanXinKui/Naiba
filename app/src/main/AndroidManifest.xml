@@ -14,29 +14,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.MQTTActivity">
+        <activity android:name=".activity.MQTTActivity"/>
+        <activity android:name=".activity.RvTextActivity">
+        </activity>
+        <activity android:name=".welcome.Introduction"></activity>
+        <activity android:name=".user.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RvTextActivity">
-
-        </activity>
-        <activity android:name=".welcome.Introduction"></activity>
-        <activity android:name=".user.Login" />
         <activity android:name=".bean.ComInf" />
         <activity android:name=".user.Register" />
-        <activity android:name=".activity.Main" />
+        <activity android:name=".activity.Main" >
+
+        </activity>
         <activity android:name=".activity.OrderList" />
         <activity android:name=".activity.ClientInfo" />
         <activity android:name=".activity.SearchHistory" />
         <activity android:name=".activity.CommentList" />
 
-        <service
-            android:name=".service.SqlQuery"
-            android:exported="false" />
+
         <service
             android:name=".mqtt.MQTTService"
             android:exported="false" />
