@@ -23,9 +23,9 @@ public class Util {
     /**
      * MQTT basic config parameters
      * */
-    public static final String MQTT_IP ="192.168.43.121";
+    public static final String MQTT_IP ="139.199.87.26";
     public static final String MQTT_IP_PORT ="1883";
-    public static final String MQTT_TOPIC ="home/garden/fountain1";
+    public static final String MQTT_TOPIC ="Project/Naiba";
     public static final String MQTT_NAME ="admin";
     public static final String MQTT_USER_ID ="client2015191036";
     public static final String MQTT_PASSWORD ="admin";
