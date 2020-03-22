@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/whole_key_board">
+
+    <GridView
+        android:id="@+id/gv_keybord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#2000"
+        android:horizontalSpacing="1px"
+        android:numColumns="3"
+        android:verticalSpacing="1px" />
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/gv_keybord"
+        android:background="#bdbdbd" />
+
+    <RelativeLayout
+        android:id="@+id/layoutBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/line"
+        android:background="#fff"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="90dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/close_board" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/layoutBack"
+        android:layout_marginTop="1dp"
+        android:background="#cdcdcd" />
+</RelativeLayout>

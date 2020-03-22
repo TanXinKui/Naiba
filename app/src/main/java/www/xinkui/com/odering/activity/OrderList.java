@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -32,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -47,6 +50,8 @@ import www.xinkui.com.odering.mqtt.MQTTService;
 import www.xinkui.com.odering.network.NetWorkManager;
 import www.xinkui.com.odering.network.response.ResponseTransformer;
 import www.xinkui.com.odering.network.schedulers.SchedulerProvider;
+import www.xinkui.com.odering.ui.VirtualKeyBoardView;
+import www.xinkui.com.odering.ui.VirtualPswBoardView;
 import www.xinkui.com.odering.util.Util;
 /**
  * Created by lenovo on 2017/11/2.
@@ -85,6 +90,17 @@ public class OrderList extends Activity implements MQTTListener {
     private RelativeLayout relativeLayout_comment;
     private Button sumb1;
 
+    VirtualKeyBoardView mKey;
+    VirtualPswBoardView mPassword;
+    GridView mGridView;
+    GridView mPasswordGridView;
+    int countPressNum = 0;
+
+    TextView amountTextView;
+    LinearLayout ll_payment;
+
+    final StringBuilder pswStringBuilder=new StringBuilder();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         currentDesk = -1;
@@ -104,8 +120,65 @@ public class OrderList extends Activity implements MQTTListener {
             startService(intent);
         }
     }
+    private void intiPayUi(){
+        if(pswStringBuilder.length()!=0){
+            pswStringBuilder.delete(0,pswStringBuilder.length());
+        }
+        countPressNum = 0;
+        mPassword.setRoundNum(countPressNum);
+        final ArrayList<Map<String,String>>  maps=mKey.getMaps();
+        mPasswordGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!mKey.isVisibleStatus()){
+                    mKey.setOnVisible();
+                }
+            }
+        });
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(MainActivity.this,"item:"+i,Toast.LENGTH_SHORT).show();
+                if(i!=11){
+                    if(countPressNum<5){
+                        pswStringBuilder.append(maps.get(i).get("name"));
+                        countPressNum++;
+                        mPassword.setRoundNum(countPressNum);
+                    }else if(countPressNum==5){
+                        pswStringBuilder.append(maps.get(i).get("name"));
+                        mPassword.setRoundNum(countPressNum);
+                        if(pswStringBuilder.toString().equals("123456")){
+                            Toast.makeText(OrderList.this,"支付成功!",Toast.LENGTH_SHORT).show();
+                            finishPay();
+                        }else {
+                            Toast.makeText(OrderList.this,"支付失败,密码错误!",Toast.LENGTH_SHORT).show();
+                        }
+                        ll_payment.setVisibility(View.GONE);
+                    }
+                }else {
+                    if(countPressNum!=0){
+                        pswStringBuilder.deleteCharAt(pswStringBuilder.length()-1);
+                        countPressNum--;
+                        mPassword.setRoundNum(countPressNum);
+                    }
+                }
+            }
+        });
 
+    }
     private void initViews() {
+        mPassword=findViewById(R.id.orderlist_pswBV);
+        mKey=findViewById(R.id.orderlist_vkBV);
+        mGridView=mKey.getmGridView();
+        mPasswordGridView = mPassword.getmGridView();
+        amountTextView = mPassword.getAmountTextView();
+        ll_payment=findViewById(R.id.ll_payment);
+        mPassword.getClosebtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ll_payment.setVisibility(View.GONE);
+            }
+        });
         desknumSelected = (TextView) findViewById(R.id.desknum);
         vendorPhonebtn = (Button) findViewById(R.id.vendorPhone);
         vendorPhonebtn.setVisibility(View.INVISIBLE);
@@ -257,6 +330,7 @@ public class OrderList extends Activity implements MQTTListener {
 //
 //            }
 //        }, 500, 500);
+        mPassword.getAmountTextView().setText("￥"+balance);
     }
 
     private void initiateRunnable() {
@@ -396,57 +470,61 @@ public class OrderList extends Activity implements MQTTListener {
             } else if (desknumSelected.getText().toString().equals(" ") || desknumSelected.getText().toString().equals("0") || clientNum0 == 0) {
                 Toast.makeText(OrderList.this, "请填完整餐桌号和用餐人数！", Toast.LENGTH_SHORT).show();
             } else {
-                confirmback.setVisibility(View.INVISIBLE);
-                paystate.setText("已支付，等待接单(请保持在当前页面)");
-                currentState = -1;
-                sp1.setVisibility(View.INVISIBLE);
-                sp2.setVisibility(View.INVISIBLE);
-                clientNum1.setVisibility(View.VISIBLE);
-                desknum3.setVisibility(View.VISIBLE);
-                vendorPhonebtn.setVisibility(View.VISIBLE);
-                commentRl.setVisibility(View.INVISIBLE);
-                int t1 = DataProvider.getInstance().getData().get(0);
-                int t2 = DataProvider.getInstance().getData().get(1);
-                int t3 = DataProvider.getInstance().getData().get(2);
-                int t4 = DataProvider.getInstance().getData().get(3);
-                int t5 = DataProvider.getInstance().getData().get(4);
-                int t6 = DataProvider.getInstance().getData().get(5);
-                int t7 = DataProvider.getInstance().getData().get(6);
-                int t8 = DataProvider.getInstance().getData().get(7);
-                int t9 = DataProvider.getInstance().getData().get(8);
-                Menu menu = new Menu(t1, t2, t3, t4, t5, t6, t7, t8, t9);
-                Transcation transcation = new Transcation(menu, balance, DataProvider.getInstance().getUsername(),
-                        Integer.valueOf(((TextView) findViewById(R.id.desknum)).getText().toString()), clientNum0);
-                MQTTObject mqttObject=new MQTTObject(Util.MQTT_TOPIC,"orderRequest");
-                MQTTService.getMqttConfig().sendMessage(Util.MQTT_TOPIC,new Gson().toJson(mqttObject),0);
-                NetWorkManager.getRequest().transcation(transcation)
-                        .compose(ResponseTransformer.handleResult())
-                        .compose(SchedulerProvider.getInstance().applySchedulers())
-                        .subscribe(new Observer<String>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(String s) {
-                                vendorphone = s;
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
+                intiPayUi();
+                ll_payment.setVisibility(View.VISIBLE);
             }
         } else {
             Toast.makeText(OrderList.this, "系统繁忙！", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void finishPay(){
+        confirmback.setVisibility(View.INVISIBLE);
+        paystate.setText("已支付，等待接单(请保持在当前页面)");
+        currentState = -1;
+        sp1.setVisibility(View.INVISIBLE);
+        sp2.setVisibility(View.INVISIBLE);
+        clientNum1.setVisibility(View.VISIBLE);
+        desknum3.setVisibility(View.VISIBLE);
+        vendorPhonebtn.setVisibility(View.VISIBLE);
+        commentRl.setVisibility(View.INVISIBLE);
+        int t1 = DataProvider.getInstance().getData().get(0);
+        int t2 = DataProvider.getInstance().getData().get(1);
+        int t3 = DataProvider.getInstance().getData().get(2);
+        int t4 = DataProvider.getInstance().getData().get(3);
+        int t5 = DataProvider.getInstance().getData().get(4);
+        int t6 = DataProvider.getInstance().getData().get(5);
+        int t7 = DataProvider.getInstance().getData().get(6);
+        int t8 = DataProvider.getInstance().getData().get(7);
+        int t9 = DataProvider.getInstance().getData().get(8);
+        Menu menu = new Menu(t1, t2, t3, t4, t5, t6, t7, t8, t9);
+        Transcation transcation = new Transcation(menu, balance, DataProvider.getInstance().getUsername(),
+                Integer.valueOf(((TextView) findViewById(R.id.desknum)).getText().toString()), clientNum0);
+        MQTTObject mqttObject=new MQTTObject(Util.MQTT_TOPIC,"orderRequest");
+        MQTTService.getMqttConfig().sendMessage(Util.MQTT_TOPIC,new Gson().toJson(mqttObject),0);
+        NetWorkManager.getRequest().transcation(transcation)
+                .compose(ResponseTransformer.handleResult())
+                .compose(SchedulerProvider.getInstance().applySchedulers())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        vendorphone = s;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     /**

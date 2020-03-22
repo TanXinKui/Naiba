@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00a2e9">
-
     <RelativeLayout
         android:id="@+id/orderlist_0_0"
         android:layout_width="match_parent"
@@ -276,4 +275,24 @@
         </LinearLayout>
 
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_payment"
+        android:layout_width="match_parent"
+        android:background="#6000"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <www.xinkui.com.odering.ui.VirtualPswBoardView
+            android:id="@+id/orderlist_pswBV"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <www.xinkui.com.odering.ui.VirtualKeyBoardView
+            android:id="@+id/orderlist_vkBV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </RelativeLayout>
